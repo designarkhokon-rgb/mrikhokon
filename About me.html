@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRI KHOKON - About Me</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Variables --- */
+        :root {
+            --sidebar-bg: #4E5081;
+            --accent-dark: #4E5081;
+            --accent-medium: #686AAC;
+            --accent-light: #7F7EB8;
+            --text-light-purple: #ABA9CF;
+            --main-bg: #D3D5E3;
+            --banner-bg: #686AAB;
+            --white: #F3F3F3;
+            --font-anton: 'Anton', sans-serif;
+            --font-poppins: 'Poppins', sans-serif;
+            --sidebar-width: 240px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: var(--font-poppins);
+            background-color: var(--main-bg);
+            color: var(--sidebar-bg);
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+        .profile-section {
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            background-image: url('https://i.imgur.com/CwuWijw.png');
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto;
+        }
+        .menu-nav {
+            flex-grow: 1;
+            padding-top: 20px;
+        }
+        .menu-nav ul {
+            list-style: none;
+        }
+        .menu-nav li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--text-light-purple);
+            text-decoration: none;
+            transition: 0.3s;
+            font-weight: 500;
+            font-size: 14px;
+            border-left: 4px solid transparent;
+        }
+        .menu-nav li a:hover, .menu-nav li a.active {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--white);
+            border-left: 4px solid var(--white);
+        }
+        .menu-nav li a i {
+            margin-right: 15px;
+            font-size: 18px;
+            width: 20px;
+            text-align: center;
+        }
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 0;
+            background-color: var(--main-bg);
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s ease;
+        }
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: auto;
+            background-color: var(--banner-bg);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .banner-content-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .banner-border-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.imgur.com/MYMyeCO.png');
+            background-size: cover;
+            background-position: center;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .freelancer-text-block {
+            text-align: center;
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 10px;
+        }
+        .freelancer-text {
+            font-family: var(--font-anton);
+            color: var(--white);
+            font-size: 76px;
+            letter-spacing: 10px;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        .social-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 0 20px 30px;
+            position: relative;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-dark);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .social-icon:hover {
+            background-color: var(--accent-medium);
+            transform: translateY(-3px);
+        }
+        .content-wrapper {
+            padding: 40px 50px;
+            flex-grow: 1;
+        }
+        .title-svg-wrapper {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .title-svg-wrapper svg {
+            width: 100%;
+            height: auto;
+            max-width: 800px;
+            margin: 0 auto;
+            display: block;
+        }
+        .intro-subtitle {
+            font-weight: 600;
+            color: var(--accent-medium);
+            font-size: 28px;
+            line-height: 1.4;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .page-title {
+            font-family: var(--font-anton);
+            font-size: 56px;
+            color: var(--accent-dark);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin: 60px 0 20px;
+            text-align: center;
+        }
+        .page-subtitle {
+            font-weight: 600;
+            color: var(--accent-medium);
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .about-content p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--sidebar-bg);
+            margin-bottom: 30px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .about-content strong {
+            color: var(--accent-dark);
+            font-weight: 700;
+        }
+        .highlights-title {
+            font-family: var(--font-anton);
+            font-size: 42px;
+            color: var(--accent-dark);
+            text-align: center;
+            margin: 70px 0 40px;
+            text-transform: uppercase;
+        }
+        .highlights-list {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 18px;
+            line-height: 2;
+            color: var(--sidebar-bg);
+            padding-left: 20px;
+        }
+        .highlights-list li {
+            margin-bottom: 15px;
+        }
+        .highlights-list strong {
+            color: var(--accent-dark);
+        }
+        .closing-text {
+            font-size: 18px;
+            line-height: 1.8;
+            font-style: italic;
+            text-align: center;
+            max-width: 900px;
+            margin: 60px auto 80px;
+            color: var(--accent-medium);
+        }
+
+        /* === Footer === */
+        footer {
+            background: linear-gradient(135deg, var(--sidebar-bg) 0%, #3a3c66 100%);
+            color: var(--white);
+            padding: 60px 30px 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, var(--accent-dark), var(--accent-medium), var(--accent-light), var(--accent-medium), var(--accent-dark));
+        }
+        .footer-contact {
+            margin-bottom: 30px;
+            font-size: 18px;
+            line-height: 2;
+        }
+        .footer-contact i {
+            color: var(--accent-light);
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        .footer-contact a {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .footer-contact a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+        .footer-copyright {
+            font-size: 15px;
+            opacity: 0.9;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        /* === Responsive Improvements === */
+        @media (max-width: 1200px) {
+            .content-wrapper {
+                padding: 40px 30px;
+            }
+            .freelancer-text {
+                font-size: 60px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            :root {
+                --sidebar-width: 80px;
+            }
+            .sidebar {
+                width: 80px;
+            }
+            .main-content {
+                margin-left: 80px;
+            }
+            .profile-section {
+                padding: 30px 10px 10px;
+            }
+            .profile-img {
+                width: 70px;
+                height: 70px;
+            }
+            .menu-nav li a span {
+                display: none;
+            }
+            .menu-nav li a {
+                justify-content: center;
+                padding: 15px;
+            }
+            .menu-nav li a i {
+                margin-right: 0;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 10px 0;
+            }
+            .profile-section {
+                display: none;
+            }
+            .menu-nav {
+                padding-top: 0;
+                display: flex;
+            }
+            .menu-nav ul {
+                display: flex;
+                flex-direction: row;
+            }
+            .menu-nav li a {
+                padding: 10px 15px;
+                flex-direction: column;
+                font-size: 12px;
+            }
+            .menu-nav li a i {
+                margin-right: 0;
+                margin-bottom: 5px;
+                font-size: 18px;
+            }
+            .menu-nav li a span {
+                display: block;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .content-wrapper {
+                padding: 30px 20px;
+            }
+            .freelancer-text {
+                font-size: 46px;
+                letter-spacing: 6px;
+            }
+            .freelancer-text-block {
+                margin-top: -50px;
+            }
+            .page-title {
+                font-size: 42px;
+                letter-spacing: 3px;
+            }
+            .page-subtitle, .intro-subtitle {
+                font-size: 22px;
+            }
+            .highlights-title {
+                font-size: 36px;
+            }
+            .about-content p, .highlights-list, .closing-text {
+                font-size: 16px;
+            }
+            footer {
+                padding: 50px 20px 30px;
+            }
+            .footer-contact {
+                font-size: 16px;
+                line-height: 1.8;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .freelancer-text {
+                font-size: 36px;
+                letter-spacing: 4px;
+            }
+            .page-title {
+                font-size: 36px;
+            }
+            .page-subtitle, .intro-subtitle {
+                font-size: 20px;
+            }
+            .social-bar {
+                gap: 10px;
+            }
+            .social-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            .content-wrapper {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="profile-section">
+                <div class="profile-img"></div>
+            </div>
+            <div class="menu-nav">
+                <ul>
+                    <li><a href="index.html"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+                    <li><a href="about.html" class="active"><i class="fa-solid fa-user"></i> <span>About Me</span></a></li>
+                    <li><a href="resume.html"><i class="fa-solid fa-file-lines"></i> <span>Resume</span></a></li>
+                    <li><a href="work.html"><i class="fa-solid fa-briefcase"></i> <span>Work Sample</span></a></li>
+                    <li><a href="portfolio.html"><i class="fa-solid fa-layer-group"></i> <span>Portfolio</span></a></li>
+                    <li><a href="shop.html"><i class="fa-solid fa-cart-shopping"></i> <span>Shop</span></a></li>
+                    <li><a href="hire.html"><i class="fa-solid fa-handshake"></i> <span>Hire Me</span></a></li>
+                    <li><a href="service.html"><i class="fa-solid fa-gears"></i> <span>Service</span></a></li>
+                    <li><a href="review.html"><i class="fa-solid fa-star"></i> <span>Review</span></a></li>
+                    <li><a href="contact.html"><i class="fa-solid fa-envelope-open-text"></i> <span>Contact</span></a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <!-- Home page cover sections -->
+            <section class="hero-banner">
+                <img src="https://i.imgur.com/9Pk0L5c.png" alt="MRI Khokon Banner" class="banner-content-img">
+                <div class="banner-border-overlay"></div>
+            </section>
+
+            <div class="freelancer-text-block">
+                <h2 class="freelancer-text">YES I AM FREELANCER</h2>
+            </div>
+
+            <div class="social-bar">
+                <a href="#" class="social-icon"><i class="fa-brands fa-behance"></i></a>
+                <a href="#" class="social-icon"><i class="fa-solid fa-basketball"></i></a>
+                <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fa-brands fa-pinterest-p"></i></a>
+            </div>
+
+            <div class="content-wrapper">
+                <div class="title-svg-wrapper">
+                    <svg viewBox="0 0 1095 228" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                        <style type="text/css">
+                            <![CDATA[
+                                @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+                                .st0 { fill: #ABA9CF; }
+                                .st1 { fill: #686AAC; }
+                                .st2 { font-family: 'Anton', sans-serif; }
+                            ]]>
+                        </style>
+                        <path class="st0" d="M1044.67,211.72H411.53c-21.12,0-38.3-17.18-38.3-38.3s17.18-38.3,38.3-38.3h331.99l15.61-27.03l15.61,27.03
+                        h269.94c21.12,0,38.3,17.18,38.3,38.3S1065.79,211.72,1044.67,211.72z M411.53,136.13c-20.57,0-37.3,16.73-37.3,37.3
+                        s16.73,37.3,37.3,37.3h633.15c20.57,0,37.3-16.73,37.3-37.3s-16.73-37.3-37.3-37.3H774.15l-15.03-26.03l-15.03,26.03H411.53z"/>
+                        <text transform="matrix(1 0 0 1 7.479 143.1423)" class="st1 st2" font-size="100px" letter-spacing="1">HELLO </text>
+                        <text transform="matrix(1 0 0 1 370.8357 91.4446)" class="st1 st2" font-size="90px" letter-spacing="5">I AM MRI KHOKON</text>
+                        <text transform="matrix(1 0 0 1 426.4841 193.3105)" class="st1 st2" font-size="43px" letter-spacing="2">MD. RASHADUL ISLAM KHOKON</text>
+                    </svg>
+                </div>
+
+                <p class="intro-subtitle">
+                    Creative Graphic Designer & Multimedia Expert | AI-Assisted Digital Artist<br>
+                    Font Developer & Advanced Trainer | Photoshop & Illustrator Researcher
+                </p>
+
+                <!-- About Me Content -->
+                <h1 class="page-title">About Me</h1>
+                <h2 class="page-subtitle">From Sketches to the Global Top 1%: A 16-Year Creative Journey</h2>
+
+                <div class="about-content">
+                    <p>My story began with a pencil and a fascination for art, leading to a fine art course in 1999. The turning point came when a senior director suggested I transition to the digital realm. After being named <strong>Best Student</strong> during my Diploma in Graphics Design, my career became a journey of constant innovation. Today, I am a leading global digital product creator with over <strong>16 years of experience</strong>, bridging artistic vision with technical execution.</p>
+
+                    <p><strong>Local Expertise and Professional Leadership</strong><br>
+                    Beyond global markets, I have spent over a decade in Bangladesh holding key roles at reputable firms. I served as <strong>Creative Team Leader</strong> at Amin & Jahan Corporation Ltd., mastering corporate design and leading large-scale brand projects. I also contributed my expertise to Textile Focus, Shahela IT Ltd, and Invogue Multimedia Ltd. These roles involved managing complex requirements, from high-end magazine layouts and newspapers to comprehensive corporate branding and packaging.</p>
+
+                    <p><strong>Specialist in Licensed and Copyright-Free Products</strong><br>
+                    In an industry filled with copies, I pride myself on creating original, copyright-free, and licensed products. Designing for global platforms requires technical knowledge and attention to detail far beyond standard services. Every asset I produce meets international standards for quality, ensuring businesses can use my work with full legal and creative confidence.</p>
+
+                    <p><strong>Marketplace Authority: Envato, Creative Market, and Beyond</strong><br>
+                    My work is featured on the world's most rigorous marketplaces, including Envato (GraphicRiver) and Creative Market. These platforms are known for strict Quality Checks (QC) and demanding technical standards. Every file I submit passes intense scrutiny for design rules and layer organization. Mastering these challenges has established me as a trusted author on Adobe Stock, Freepik, and Creative Fabrica, where my resources are utilized by millions worldwide.</p>
+
+                    <p><strong>Future-Ready: AI-Powered Creativity</strong><br>
+                    I stay ahead of the technological curve by integrating Artificial Intelligence (AI) into my workflow to enhance productivity. My AI-assisted capabilities include AI Image Generation, Advanced Photo Manipulation, AI Video Production, Motion Graphics, and AI Audio/Music Composition for multimedia projects.</p>
+                </div>
+
+                <h2 class="highlights-title">Career Highlights</h2>
+                <ul class="highlights-list">
+                    <li><strong>Top 1% Global Seller:</strong> Recognized as a top-tier creator across major international marketplaces.</li>
+                    <li><strong>500,000+ Customers:</strong> My library of 5,000+ premium assets—Photoshop actions, templates, graphics, and fonts—is trusted globally.</li>
+                    <li><strong>Design Diversity:</strong> Expert in Brand Identity, Magazines, Custom Typography, Video Editing, Animation, UI/UX, PPT, and E-publishing.</li>
+                </ul>
+
+                <p class="closing-text">I believe perfect design is a blend of passion and technical perfection. With 16+ years of experience, I am ready to elevate your brand to a world-class standard. Let us write your brand's next creative chapter together.</p>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-contact">
+                <div><i class="fa-solid fa-phone"></i> Contact: +88 01620 326338 | +88 01312 020345</div>
+                <div><i class="fa-solid fa-envelope"></i> Email: 
+                    <a href="mailto:mrikhokon2015@gmail.com">mrikhokon2015@gmail.com</a> | 
+                    <a href="mailto:designarkhokon@gmail.com">designarkhokon@gmail.com</a>
+                </div>
+                <div><i class="fa-solid fa-globe"></i> Website: <a href="https://www.photoshopaction.net" target="_blank">www.photoshopaction.net</a></div>
+            </div>
+            <div class="footer-copyright">
+                © 2025 Mri Khokon. Designed & developed by Mri Khokon.<br>
+                All third-party trademarks are the property of their respective owners.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
