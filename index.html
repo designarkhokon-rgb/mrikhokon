@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRI KHOKON - Portfolio Updated</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Variables --- */
+        :root {
+            --sidebar-bg: #4E5081;
+            --accent-dark: #4E5081;
+            --accent-medium: #686AAC;
+            --accent-light: #7F7EB8;
+            --text-light-purple: #ABA9CF;
+            --main-bg: #D3D5E3;
+            --banner-bg: #686AAB;
+            --white: #F3F3F3;
+            --font-anton: 'Anton', sans-serif;
+            --font-poppins: 'Poppins', sans-serif;
+            --sidebar-width: 240px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: var(--font-poppins);
+            background-color: var(--main-bg);
+            color: var(--sidebar-bg);
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            transition: width 0.3s ease;
+        }
+        .profile-section {
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            background-image: url('https://i.imgur.com/CwuWijw.png');
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto;
+        }
+        .menu-nav {
+            flex-grow: 1;
+            padding-top: 20px;
+        }
+        .menu-nav ul {
+            list-style: none;
+        }
+        .menu-nav li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--text-light-purple);
+            text-decoration: none;
+            transition: 0.3s;
+            font-weight: 500;
+            font-size: 14px;
+            border-left: 4px solid transparent;
+        }
+        .menu-nav li a:hover, .menu-nav li a.active {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--white);
+            border-left: 4px solid var(--white);
+        }
+        .menu-nav li a i {
+            margin-right: 15px;
+            font-size: 18px;
+            width: 20px;
+            text-align: center;
+        }
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 0;
+            background-color: var(--main-bg);
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s ease;
+        }
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: auto;
+            background-color: var(--banner-bg);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .banner-content-img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            display: block;
+        }
+        .banner-border-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.imgur.com/MYMyeCO.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .freelancer-text-block {
+            text-align: center;
+            margin-top: clamp(-80px, -10vw, -100px);
+            position: relative;
+            z-index: 10;
+            margin-bottom: 10px;
+        }
+        .freelancer-text {
+            font-family: var(--font-anton);
+            color: var(--white);
+            font-size: clamp(40px, 8vw, 76px);
+            letter-spacing: clamp(4px, 1.5vw, 10px);
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        .social-bar {
+            display: flex;
+            justify-content: center;
+            gap: clamp(10px, 2vw, 15px);
+            padding-bottom: clamp(15px, 3vw, 20px);
+            position: relative;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: clamp(35px, 5vw, 40px);
+            height: clamp(35px, 5vw, 40px);
+            background-color: var(--accent-dark);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: clamp(16px, 3vw, 18px);
+            flex-shrink: 0;
+        }
+        .social-icon:hover {
+            background-color: var(--accent-medium);
+            transform: translateY(-3px);
+        }
+        .content-wrapper {
+            padding: clamp(20px, 5vw, 40px) clamp(20px, 5vw, 50px);
+            flex-grow: 1;
+        }
+        .title-svg-wrapper {
+            text-align: center;
+            margin-bottom: clamp(15px, 3vw, 20px);
+        }
+        .title-svg-wrapper svg {
+            width: 100%;
+            height: auto;
+            max-width: 900px;
+            display: block;
+            margin: 0 auto;
+        }
+        .intro-subtitle {
+            font-weight: 600;
+            color: var(--accent-medium);
+            font-size: clamp(20px, 4vw, 28px);
+            line-height: 1.4;
+            margin-bottom: clamp(20px, 4vw, 30px);
+            text-align: center;
+        }
+        .action-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(15px, 3vw, 30px);
+            margin: clamp(30px, 5vw, 40px) 0 clamp(40px, 6vw, 60px);
+        }
+        .action-box {
+            flex: 1 1 280px;
+        }
+        .btn-main {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-dark);
+            color: var(--white);
+            text-align: center;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: clamp(16px, 3vw, 20px);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .btn-main:hover {
+            background-color: var(--accent-medium);
+        }
+        .action-desc {
+            color: var(--accent-dark);
+            font-size: clamp(14px, 2vw, 16px);
+            line-height: 1.4;
+        }
+        .about-section {
+            margin-bottom: clamp(40px, 6vw, 60px);
+        }
+        .about-section h1 {
+            font-family: var(--font-anton);
+            font-size: clamp(36px, 6vw, 48px);
+            color: var(--accent-dark);
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        .about-section h2 {
+            font-size: clamp(20px, 4vw, 28px);
+            color: var(--accent-medium);
+            font-weight: 400;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .about-section p {
+            font-size: clamp(15px, 2.5vw, 16px);
+            line-height: 1.6;
+            color: var(--sidebar-bg);
+            margin-bottom: 30px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn-download {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent-dark);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: clamp(15px, 2.5vw, 16px);
+            border-radius: 5px;
+            transition: 0.3s;
+            margin: 0 auto;
+            display: block;
+            width: fit-content;
+        }
+        .btn-download:hover {
+            background-color: var(--accent-medium);
+        }
+        .section-title {
+            font-family: var(--font-anton);
+            font-size: clamp(32px, 5vw, 42px);
+            color: var(--accent-dark);
+            text-align: center;
+            margin: clamp(40px, 8vw, 60px) 0 clamp(30px, 5vw, 40px);
+            text-transform: uppercase;
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: clamp(15px, 3vw, 20px);
+            margin-bottom: clamp(60px, 8vw, 80px);
+        }
+        .portfolio-item {
+            background-color: rgba(104, 106, 172, 0.15);
+            padding: 20px;
+            text-align: center;
+            border-radius: 12px;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+        .portfolio-item:hover {
+            background-color: rgba(104, 106, 172, 0.25);
+            border-color: var(--accent-medium);
+            transform: translateY(-5px);
+        }
+        .portfolio-item a {
+            font-weight: 600;
+            font-size: clamp(16px, 2.5vw, 18px);
+            color: var(--accent-dark);
+            text-decoration: none;
+        }
+        .portfolio-item a:hover {
+            color: var(--accent-medium);
+        }
+        /* === Enhanced Striking Footer === */
+        footer {
+            background: linear-gradient(135deg, var(--sidebar-bg) 0%, #3a3c66 100%);
+            color: var(--white);
+            padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 50px) clamp(30px, 5vw, 40px);
+            text-align: center;
+            position: relative;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, var(--accent-dark), var(--accent-medium), var(--accent-light), var(--accent-medium), var(--accent-dark));
+        }
+        .footer-contact {
+            margin-bottom: 30px;
+            font-size: clamp(16px, 2.5vw, 18px);
+            line-height: 2;
+        }
+        .footer-contact i {
+            color: var(--accent-light);
+            margin-right: 10px;
+            font-size: clamp(18px, 3vw, 20px);
+        }
+        .footer-contact a {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .footer-contact a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+        .footer-copyright {
+            font-size: clamp(14px, 2vw, 15px);
+            opacity: 0.9;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        /* === Enhanced Responsive Breakpoints === */
+        @media (max-width: 1200px) {
+            .content-wrapper {
+                padding: clamp(30px, 5vw, 40px) clamp(20px, 4vw, 50px);
+            }
+        }
+        @media (max-width: 992px) {
+            :root {
+                --sidebar-width: 80px;
+            }
+            .sidebar {
+                width: 80px;
+            }
+            .main-content {
+                margin-left: 80px;
+            }
+            .profile-section {
+                padding: 30px 10px 10px;
+            }
+            .profile-img {
+                width: 70px;
+                height: 70px;
+            }
+            .menu-nav li a span {
+                display: none;
+            }
+            .menu-nav li a {
+                justify-content: center;
+                padding: 15px;
+            }
+            .menu-nav li a i {
+                margin-right: 0;
+                font-size: 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 10px 0;
+                scrollbar-width: none;
+            }
+            .sidebar::-webkit-scrollbar {
+                display: none;
+            }
+            .profile-section {
+                display: none;
+            }
+            .menu-nav {
+                padding-top: 0;
+                display: flex;
+                width: 100%;
+            }
+            .menu-nav ul {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: center;
+            }
+            .menu-nav li a {
+                padding: 10px 15px;
+                flex-direction: column;
+                font-size: 12px;
+                min-width: 70px;
+            }
+            .menu-nav li a i {
+                margin-right: 0;
+                margin-bottom: 5px;
+                font-size: 18px;
+            }
+            .menu-nav li a span {
+                display: block;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .action-area {
+                flex-direction: column;
+            }
+        }
+        @media (max-width: 480px) {
+            .freelancer-text-block {
+                margin-top: -50px;
+            }
+            .social-bar {
+                gap: 10px;
+                padding: 10px 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="profile-section">
+                <div class="profile-img"></div>
+            </div>
+            <div class="menu-nav">
+                <ul>
+                    <li><a href="#home" class="active"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+                    <li><a href="#about"><i class="fa-solid fa-user"></i> <span>About Me</span></a></li>
+                    <li><a href="#resume"><i class="fa-solid fa-file-lines"></i> <span>Resume</span></a></li>
+                    <li><a href="#work"><i class="fa-solid fa-briefcase"></i> <span>Work Sample</span></a></li>
+                    <li><a href="#portfolio"><i class="fa-solid fa-layer-group"></i> <span>Portfolio</span></a></li>
+                    <li><a href="#shop"><i class="fa-solid fa-cart-shopping"></i> <span>Shop</span></a></li>
+                    <li><a href="#hire"><i class="fa-solid fa-handshake"></i> <span>Hire Me</span></a></li>
+                    <li><a href="#service"><i class="fa-solid fa-gears"></i> <span>Service</span></a></li>
+                    <li><a href="#review"><i class="fa-solid fa-star"></i> <span>Review</span></a></li>
+                    <li><a href="#contact"><i class="fa-solid fa-envelope-open-text"></i> <span>Contact</span></a></li>
+                </ul>
+            </div>
+        </nav>
+        <main class="main-content">
+            <section id="home">
+                <div class="hero-banner">
+                    <img src="https://i.imgur.com/9Pk0L5c.png" alt="MRI Khokon Banner Content" class="banner-content-img">
+                    <div class="banner-border-overlay"></div>
+                </div>
+                <div class="freelancer-text-block">
+                    <h2 class="freelancer-text">YES I AM FREELANCER</h2>
+                </div>
+                <div class="social-bar">
+                    <a href="#" class="social-icon" aria-label="Behance"><i class="fa-brands fa-behance"></i></a>
+                    <a href="#" class="social-icon" aria-label="Dribbble"><i class="fa-solid fa-basketball"></i></a>
+                    <a href="#" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="social-icon" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+                </div>
+                <div class="content-wrapper">
+                    <div class="title-svg-wrapper">
+                        <svg viewBox="0 0 1095 228" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                            <style type="text/css">
+                                <![CDATA[
+                                    @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+                                    .st0 { fill: #ABA9CF; }
+                                    .st1 { fill: #686AAC; }
+                                    .st2 { font-family: 'Anton', sans-serif; }
+                                ]]>
+                            </style>
+                            <path class="st0" d="M1044.67,211.72H411.53c-21.12,0-38.3-17.18-38.3-38.3s17.18-38.3,38.3-38.3h331.99l15.61-27.03l15.61,27.03
+                            h269.94c21.12,0,38.3,17.18,38.3,38.3S1065.79,211.72,1044.67,211.72z M411.53,136.13c-20.57,0-37.3,16.73-37.3,37.3
+                            s16.73,37.3,37.3,37.3h633.15c20.57,0,37.3-16.73,37.3-37.3s-16.73-37.3-37.3-37.3H774.15l-15.03-26.03l-15.03,26.03H411.53z"/>
+                            <text transform="matrix(1 0 0 1 7.479 143.1423)" class="st1 st2" font-size="100px" letter-spacing="1">HELLO </text>
+                            <text transform="matrix(1 0 0 1 370.8357 91.4446)" class="st1 st2" font-size="90px" letter-spacing="5">I AM MRI KHOKON</text>
+                            <text transform="matrix(1 0 0 1 426.4841 193.3105)" class="st1 st2" font-size="43px" letter-spacing="2">MD. RASHADUL ISLAM KHOKON</text>
+                        </svg>
+                    </div>
+                    <p class="intro-subtitle">
+                        Creative Graphic Designer & Multimedia Expert | AI-Assisted Digital Artist<br>
+                        Font Developer & Advanced Trainer | Photoshop & Illustrator Researcher
+                    </p>
+                    <div class="action-area">
+                        <div class="action-box">
+                            <a href="#hire" class="btn-main">Hire Me Now</a>
+                            <p class="action-desc">Freelance & project-based work</p>
+                        </div>
+                        <div class="action-box">
+                            <a href="#jobs" class="btn-main">Open to Job Opportunities</a>
+                            <p class="action-desc">Full-time or contract roles</p>
+                        </div>
+                        <div class="action-box">
+                            <a href="#partnership" class="btn-main">Partnership</a>
+                            <p class="action-desc">Consulting & long-term collaboration</p>
+                        </div>
+                    </div>
+                    <section class="about-section">
+                        <h1>Award-Winning Creative Designer & Digital Product Creator</h1>
+                        <h2>Top 1% Seller on Envato, Creative Market | 500,000+ Customers | 16+ Years Experience</h2>
+                        <p>Award-winning creative graphic designer and digital product creator with 16+ years of experience and creator of 3,000+ best-selling Photoshop actions, templates, fonts, and digital assets trusted by over 500,000 customers worldwide. Recognized as a Top 1% seller on Envato, Creative Market, Freepik, and Adobe Stock. Expert in corporate brand identity, high-end print production, advanced photo manipulation, custom font development (English & Bangla), and multimedia content creation. Proven track record in leading design teams, training professionals, and delivering production-ready artwork for both local and international clients.</p>
+                        <a href="#" class="btn-download">DOWNLOAD CV</a>
+                    </section>
+                    <h2 class="section-title">Portfolio & Marketplaces</h2>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item"><a href="https://stock.adobe.com/contributor/206137640/mrikhokon" target="_blank">Adobe Stock</a></div>
+                        <div class="portfolio-item"><a href="https://graphicriver.net/user/mrikhokon/portfolio" target="_blank">GraphicRiver</a></div>
+                        <div class="portfolio-item"><a href="https://creativemarket.com/mristudio" target="_blank">Creative Market</a></div>
+                        <div class="portfolio-item"><a href="https://www.freepik.com/author/user7310961" target="_blank">Freepik</a></div>
+                        <div class="portfolio-item"><a href="https://www.creativefabrica.com/designer/mristudio/" target="_blank">Creative Fabrica</a></div>
+                        <div class="portfolio-item"><a href="https://www.shutterstock.com/g/mrikhokon" target="_blank">Shutterstock</a></div>
+                        <div class="portfolio-item"><a href="https://designbundles.net/mrikhokon" target="_blank">DesignBundles</a></div>
+                        <div class="portfolio-item"><a href="https://pngtree.com/mrikhokon_4977912" target="_blank">Pngtree</a></div>
+                        <div class="portfolio-item"><a href="https://masterbundles.com/vendor/mrikhokon/" target="_blank">Master Bundles</a></div>
+                        <div class="portfolio-item"><a href="https://www.fiverr.com/mristudio" target="_blank">Fiverr</a></div>
+                        <div class="portfolio-item"><a href="https://www.behance.net/mristudio" target="_blank">Behance</a></div>
+                        <div class="portfolio-item"><a href="https://dribbble.com/mristudio" target="_blank">Dribbble</a></div>
+                        <div class="portfolio-item"><a href="https://pinterest.com/Mristudioinfo/" target="_blank">Pinterest</a></div>
+                        <div class="portfolio-item"><a href="https://www.youtube.com/@mrikhokon7374/videos" target="_blank">YouTube</a></div>
+                        <div class="portfolio-item"><a href="https://www.linkedin.com/in/md-khokon-965637361/" target="_blank">LinkedIn</a></div>
+                        <div class="portfolio-item"><a href="https://www.facebook.com/mrikhokoninfo/" target="_blank">Facebook</a></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <div class="footer-contact">
+                <div><i class="fa-solid fa-phone"></i> Contact: +88 01620 326338 | +88 01312 020345</div>
+                <div><i class="fa-solid fa-envelope"></i> Email:
+                    <a href="mailto:mrikhokon2015@gmail.com">mrikhokon2015@gmail.com</a> |
+                    <a href="mailto:designarkhokon@gmail.com">designarkhokon@gmail.com</a>
+                </div>
+                <div><i class="fa-solid fa-globe"></i> Website: <a href="https://www.photoshopaction.net" target="_blank">www.photoshopaction.net</a></div>
+            </div>
+            <div class="footer-copyright">
+                © 2025 Mri Khokon. Designed & developed by Mri Khokon.<br>
+                All third-party trademarks are the property of their respective owners.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
